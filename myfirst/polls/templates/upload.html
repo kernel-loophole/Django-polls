@@ -1,0 +1,9 @@
+{%extends 'tmp.html'%}
+{% block content%}
+<form enctype="multipart/form-data" method="POST",action="{% url 'polls:upload'%}">
+    {%csrf_token%}
+    <label for="myfile">Select a file:</label>
+    <input type="file" id="file_name" name="file_name"> 
+    <button type="submit" class="btn btn-primary">submit</button>
+    </form>
+{%endblock%}

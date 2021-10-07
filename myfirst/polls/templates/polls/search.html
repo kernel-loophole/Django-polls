@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'polls:index' %}">Home <span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'polls:test' %}">froms</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'polls:register' %}">register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'polls:upload' %}">upload</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'polls:make_pdf' %}">make pdf</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'polls:login' %}">login</a>
+        </li>
+       
+        
+        
+      </ul>
+      <form class="form-inline my-2 my-lg-0" ,method=POST action="{%url 'polls:bar'%}">
+           {% csrf_token %}
+        <input class="form-control mr-sm-2" type="search" placeholder="Search the name" aria-label="Search",name="searched">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>

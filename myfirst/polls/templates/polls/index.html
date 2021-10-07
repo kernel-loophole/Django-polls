@@ -1,0 +1,203 @@
+{%extends 'tmp.html'%}
+<html>
+  
+    <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Crimson+Pro">
+
+     
+{% block content %}
+
+
+<a class="nav-link" href="{% url 'polls:test' %}">
+<img src="static/img2.gif" alt="..." class="rounded-circle" >
+</a>
+<title> Django</title>  
+    
+    
+<style>
+  .fancy {
+    /* Within a circle, centered text looks prettier. */
+    text-align : center;
+  
+    /* Let's avoid our text touching the border. As
+       our text will still flow in a square, it looks
+       nicer that way, giving the feeling that it's a "real"
+       circle. */
+    padding : 1em;
+  
+    /* The border will make the circle visible.
+       You could also use a background, as
+       backgrounds are clipped by border radius */
+    border : 0.5em solid black;
+  
+    /* Let's make sure we have a square.
+       If it's not a square, we'll get an
+       ellipsis rather than a circle */
+    width  : 4em;
+    height : 4em;
+  
+    /* and let's turn the square into a circle */
+    border-radius: 100%;
+  }
+  #loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  margin: -76px 0 0 -76px;
+  border-top: 16px solid blue;
+  border-left: 16px solid green;
+  border-radius: 50%;
+  border-right: 16px solid red;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#myDiv {
+  display: none;
+  text-align: center;
+}
+   blockquote{
+    width: 230px;
+float: left;
+margin: 5px;
+padding: 5px;
+   }
+   clear{
+     clear: left;
+   }
+img{
+  width: 200px;
+  height: 200px;
+}   
+body {
+  background-image: url("static/img3.gif");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size:cover;
+
+  font-family: 'Crimson Pro', serif;
+  font-size: 27px;
+}
+
+</style>
+
+<body onload="myFunction()" style="margin:0;">
+
+  <div id="loader"></div>
+  
+  <div style="display:none;" id="myDiv" class="animate-bottom">
+    <h2>wahoo!</h2>
+    <p style="color: darkviolet;"> animations is complete</p>
+  </div>
+  
+  <script>
+  var myVar;
+  
+  function myFunction() {
+    myVar = setTimeout(showPage, 3000);
+  }
+  
+  function showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("myDiv").style.display = "block";
+  }
+  </script>
+    {% csrf_token %}
+    <div class="fancy">Hi! </div>
+
+    {% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+    <blockquote>
+        <li><a href="/polls/{{ question.id }}/">{{ question.question_text | title }}</a></li>
+      </br>
+    </blockquote>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+
+
+<br>
+<strong  style="color: crimson;">this is from test database</strong>
+</br>
+{% csrf_token %}
+{% for bl in page_obj %}
+<blockquote>
+  <p> </p>
+<li><a href="/polls/{{bl.id}}">{{bl.name}}</a></li>
+</blockquote>
+
+
+{% endfor %}
+</br>
+</br>
+</br>
+<a href="{%url 'polls:text_maker'%}">text download</a>
+
+<h1 style="color: aqua;"> this is form the entry database</h1>
+{% for bloger in bloger_test %}
+<li style="color: maroon;">{{bloger.number_of_comments}}</li>
+{% endfor %}
+<p style="color: rgb(47, 79, 79);"> Use of and in Django using Q lookup</p>
+{% for bloger in ander %}
+<li style="color: maroon;">{{bloger.number_of_comments}}</li>
+{% endfor %}
+<div class="pagination">
+  <span class="step-links">
+  {% if page_obj.has_previous %}
+  <a href="?page=1">&laquo; first</a>
+  <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+{% endif %}
+<span class="current">
+Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+</span>
+{% if page_obj.has_next %}
+<a href="?page={{ page_obj.next_page_number }}",style='color:green'>>></a>
+<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+{% endif %}
+<i class="bi bi-download"></i>
+</span>
+</div>
+
+
+
+
+
+
+
+{%endblock%}
+</html>

@@ -1,0 +1,13 @@
+{%extends 'polls/base.html' %}
+{%block content %}
+
+    {% if searched %}
+    <h1>you  search for {{searched}}</h1>
+    
+    {%else%}
+    <h1>
+        you forgot
+    </h1>
+    {% endif %}
+
+{%endblock%}
